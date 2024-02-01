@@ -1,11 +1,19 @@
 
 <template>
  <h1>home</h1>
+ <router-link to="/post">Adicionar blog</router-link>
  <div class="container" v-for="post in posts" :key="post.id">
-  <div class="mini-image" :style="{'background-image': 'url(' + image +')'}">  </div>
-  <img :src="image" alt="foto">
+  <!-- <div class="mini-image" :style="{'background-image': 'url(' + image +')'}">  </div> -->
+  <div v-if="post.image">
+
+    <img :src="image" alt="">
+  </div>
+  <div v-else>
+    <img src="https://th.bing.com/th/id/OIP.uqo29BmmVdhmpl0zYgRAhQHaHa?rs=1&pid=ImgDetMain" alt="">
+  </div>
+
   <h1>{{ post.title }}:</h1>
-  <p>{{ post.description }}</p>
+  <div>{{ post.description }}</div>
  </div>
 </template>
 
@@ -15,7 +23,7 @@ export default {
   data(){
     return {
       posts: [],
-      image: null
+      image: ''
     }
   },
   created() {
@@ -32,15 +40,15 @@ export default {
       .then((resp) => resp.json())
       .then((data) => {
         this.posts = data.posts
-
-        this.posts.forEach(post => {
-          this.image = post.image.replace("uploads", "http://localhost:5173").replaceAll("\\", "/")
-        });
-        console.log(this.image)
-
-        //console.log(this.posts[0].image)
         
-        //console.log(data.posts[0].image)
+        this.posts.forEach((post, i) => {
+          if(post.image) {
+            console.log(post.image)
+            this.image = post.image.replace("uploads", "http://localhost:5000/file").replaceAll("\\", "/")
+            console.log(post.image)
+          }
+        });
+
       })
       .catch((err) => {
         console.log(err)

@@ -1,8 +1,9 @@
 <template>
     <div class="container">
-        <router-link class="home" to="/home">Home</router-link>
+        <router-link class="home" to="/">Home</router-link>
         <div class="log-container">
             <router-link class="log" to="/login" v-show="!authenticated">log-in</router-link>
+            <router-link class="log" to="/register" v-show="!authenticated">Cadastrar</router-link>
             <button class="log" v-show="authenticated" @click="logout($event)">Deslogar</button>
         </div>
     </div>
@@ -19,7 +20,7 @@ export default {
             this.$store.commit("logout")
             console.log("deslogado")
 
-            this.$router.push("/home")
+            this.$router.push("/")
         }
     },
     computed: {

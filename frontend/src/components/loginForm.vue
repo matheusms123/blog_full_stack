@@ -62,7 +62,7 @@ export default {
                         if (!auth) {
                             this.msg = null
                         } else {
-                            this.$router.push("/home")
+                            this.$router.push("/")
                         }
                     }, 1000);
                 })
